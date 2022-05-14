@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MusicRCM.Areas.Identity.Data;
 using MusicRCM.Data;
 using MusicRCM.Models;
 using System;
@@ -26,9 +27,12 @@ namespace MusicRCM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDefaultIdentity<MusicUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                  .AddEntityFrameworkStores<MusicDBContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddDbContext<MusicDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
+            services.AddDbContext<MusicDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
+            //services.AddDbContext<MusicDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
