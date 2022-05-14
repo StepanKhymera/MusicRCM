@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MusicRCM.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
