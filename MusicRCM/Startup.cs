@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using MusicRCM.Areas.Identity.Data;
 using MusicRCM.Data;
 using MusicRCM.Models;
+using SpotifyAPI.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,10 @@ namespace MusicRCM
                   .AddEntityFrameworkStores<MusicDBContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //new SpotifyClient(config);
+            services.AddSingleton<ISpotifyClient>(new SpotifyClient(SpotifyClientConfig
+                .CreateDefault()
+                .WithAuthenticator(new ClientCredentialsAuthenticator("5b7bba93ab5a4d87a33c16afeac6960e", "aeddda90a0af4b7f804023a42c85174a"))));
             services.AddDbContext<MusicDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
             //services.AddDbContext<MusicDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
         }

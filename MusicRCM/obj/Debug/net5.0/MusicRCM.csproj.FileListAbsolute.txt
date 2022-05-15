@@ -166,3 +166,9 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\D
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Details.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Edit.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Index.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Create.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Delete.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Details.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Edit.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Index.cshtml.g.cs
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\bin\Debug\net5.0\SpotifyAPI.Web.dll

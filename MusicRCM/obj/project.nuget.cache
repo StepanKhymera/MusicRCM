@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ywzKeqeALjFXvqRxyhPaaPbebgQQxYfHhF4KsJGhHU+Fx+HPAlQAQ7ylWuNOlD2vA4BkAzGmBE7KE3EZI4PTrg==",
+  "dgSpecHash": "6ICssF8Sk/PhsaEB5sHOgSfEalGlX2BIvWDHsjIsnvMNS55aGpzR55YxHfknYHsrYBx3ChS5bvomsUXjG+S1QA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\source\\repos\\MusicRCM\\MusicRCM\\MusicRCM.csproj",
   "expectedPackageFiles": [
@@ -79,8 +79,9 @@
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\5.0.2\\microsoft.visualstudio.web.codegenerators.mvc.5.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\spotifyapi.web\\6.2.2\\spotifyapi.web.6.2.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",

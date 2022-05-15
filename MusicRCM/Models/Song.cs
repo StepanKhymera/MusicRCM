@@ -16,17 +16,17 @@ namespace MusicRCM.Models
         [Key]
         [Column("song_id")]
         public int SongId { get; set; }
-        [Column("playlist_id")]
-        public int PlaylistId { get; set; }
+       
         [Column("spotify_id")]
-        public int SpotifyId { get; set; }
+        public string SpotifyId { get; set; }
         [Column("song_name")]
         public string SongName { get; set; }
         [Column("artist_id")]
-        public int ArtistId { get; set; }
+        public string ArtistId { get; set; }
         [Column("artist_name")]
         public string ArtistName  { get; set; }
-
+        [Column("playlist_id")]
+        public int PlaylistId { get; set; }
         [ForeignKey(nameof(PlaylistId))]
         [InverseProperty("Songs")]
         public virtual Playlist Playlist { get; set; }

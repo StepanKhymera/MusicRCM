@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using MusicRCM.Models;
 
 namespace MusicRCM.Areas.Identity.Data
 {
@@ -17,5 +18,9 @@ namespace MusicRCM.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string Country { get; set; }
+
+        [InverseProperty(nameof(Playlist.MusicUser))]
+        public virtual ICollection<Playlist> Playlists { get; set; }
+
     }
 }

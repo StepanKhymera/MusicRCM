@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicRCM.Data;
 
 namespace MusicRCM.Migrations
 {
     [DbContext(typeof(MusicDBContext))]
-    partial class MusicDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220515105134_source identf")]
+    partial class sourceidentf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,8 +258,8 @@ namespace MusicRCM.Migrations
                         .HasColumnName("song_id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArtistId")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int")
                         .HasColumnName("artist_id");
 
                     b.Property<string>("ArtistName")
