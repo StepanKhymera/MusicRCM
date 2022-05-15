@@ -25,6 +25,8 @@ namespace MusicRCM.Models
         public string ArtistId { get; set; }
         [Column("artist_name")]
         public string ArtistName  { get; set; }
+        [Column("popularity")]
+        public int Popularity { get; set; }
         [Column("playlist_id")]
         public int PlaylistId { get; set; }
         [ForeignKey(nameof(PlaylistId))]

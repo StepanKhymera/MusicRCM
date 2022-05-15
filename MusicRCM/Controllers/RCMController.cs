@@ -75,14 +75,25 @@ namespace MusicRCM.Controllers
             ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId");
             return View();
         }
-        private string Stringify(List<string> data)
+        private List<Song> PopulateData(List<string> ids)
         {
-            string result = "";
-            foreach(string s in data)
+            List<Song> result = new List<Song>();
+            TracksRequest TR = new TracksRequest(ids);
+
+            var tracks = _SpotifyClient.Tracks.GetSeveral(TR).Result.Tracks;
+            int Pid = GetPlaylistId(false);
+            foreach(var track in tracks)
             {
-                result += s + ',';
+                result.Add(new Song()
+                {
+                    SpotifyId = track.Id,
+                    SongName = track.Name,
+                    ArtistName = track.Artists.FirstOrDefault().Name,
+                    ArtistId = track.Artists.FirstOrDefault().Id,
+                    Popularity = track.Popularity,
+                    PlaylistId = Pid
+                });
             }
-            result = result.Remove(result.Length - 1);
             return result;
         }
         // POST: RCM/Create
@@ -90,30 +101,27 @@ namespace MusicRCM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string amount)
+        public async Task<IActionResult> Create(int amount)
         {
             int SPI = GetPlaylistId(true);
             var Seed = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == SPI).ToList();
+            int avr_rcm = (int)Math.Ceiling((amount / 5.0) * Seed.Count);
+            if (avr_rcm < 2) avr_rcm = 2;
+            List<string> RCMids = new List<string>();
             for(int i = 0; i < Seed.Count; i += 5)
             {
                 RecommendationsRequest rr = new RecommendationsRequest();
-                var range = Seed.GetRange(0, i + 5 < Seed.Count ? i + 5 : Seed.Count);
-                List<string> artists = range.Select(x => x.ArtistId).ToList();
-                List<string> genres = new List<string>(); 
-                foreach (string a in artists)
-                {
-                    var QR = _SpotifyClient.Artists.Get(a).Result;
-                    genres.Add(QR.Genres.FirstOrDefault());
-                }
-                range.ForEach(x => {
-                    rr.SeedArtists.Add(x.ArtistId);
-                    rr.SeedTracks.Add(x.SpotifyId);
-                    rr.SeedGenres.Add(genres.First());
-                    genres.RemoveAt(0);
-                });              
-                var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result;
+                Seed.GetRange(0, i + 5 < Seed.Count ? i + 5 : Seed.Count).ForEach(x => {
+                    rr.SeedTracks.Add(x.SpotifyId); 
+                });
+                rr.Limit = avr_rcm;
+                var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result.Tracks;
+                RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
 
             }
+            List<Song> songModels = PopulateData(RCMids).OrderBy(x => x.Popularity).Take(amount).ToList();
+            _context.AddRange(songModels);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
