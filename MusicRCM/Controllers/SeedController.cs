@@ -187,8 +187,10 @@ namespace MusicRCM.Controllers
             {
                 return NotFound();
             }
-
-            return View(song);
+            _context.Song.Remove(song);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //return View();
         }
 
         // POST: Seed/Delete/5

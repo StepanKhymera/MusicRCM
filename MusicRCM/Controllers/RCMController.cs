@@ -106,7 +106,7 @@ namespace MusicRCM.Controllers
             int SPI = GetPlaylistId(true);
             var Seed = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == SPI).ToList();
             int avr_rcm = (int)Math.Ceiling((amount / 5.0) * Seed.Count);
-            if (avr_rcm < 2) avr_rcm = 2;
+            if (avr_rcm < 5) avr_rcm = 5;
             List<string> RCMids = new List<string>();
             for(int i = 0; i < Seed.Count; i += 5)
             {
