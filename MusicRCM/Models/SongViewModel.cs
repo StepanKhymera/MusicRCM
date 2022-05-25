@@ -20,7 +20,10 @@ namespace MusicRCM.Models
         public string SongName { get; set; }
         public string ArtistId { get; set; }
         public string ArtistName { get; set; }
+        public string ImageUrl { get; set; }
+        public string TrackURI { get; set; }
+        public string AlbumName { get; set; }
 
-       
+
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicRCM.Data;
 
 namespace MusicRCM.Migrations
 {
     [DbContext(typeof(MusicDBContext))]
-    partial class MusicDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220524185923_added Image")]
+    partial class addedImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,10 +258,6 @@ namespace MusicRCM.Migrations
                         .HasColumnName("song_id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AlbumName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("albumName");
-
                     b.Property<string>("ArtistId")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("artist_id");
@@ -287,10 +285,6 @@ namespace MusicRCM.Migrations
                     b.Property<string>("SpotifyId")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("spotify_id");
-
-                    b.Property<string>("TrackURI")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("trackURI");
 
                     b.HasKey("SongId");
 

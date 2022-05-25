@@ -28,7 +28,8 @@ namespace MusicRCM.Controllers
         // GET: Seed
         public async Task<IActionResult> Index()
         {
-            var musicDBContext = _context.Song.Include(s => s.Playlist);
+            int PI = GetPlaylistId(true);
+            var musicDBContext = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI);
             return View(await musicDBContext.ToListAsync());
         }
 
@@ -60,45 +61,63 @@ namespace MusicRCM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Search([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName")] SongViewModel songVM)
+        public async Task<IActionResult> Search([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl, TrackURI, AlbumName")] SongViewModel songVM)
         {
-            var rq = new SearchRequest(SearchRequest.Types.Track, songVM.SearchQuery);
+            SearchRequest rq = new SearchRequest(SearchRequest.Types.Track, songVM.SearchQuery);
             rq.Limit = 1;
-            
-            var track = _SpotifyClient.Search.Item(rq).Result.Tracks.Items.FirstOrDefault();
-            SongViewModel searchResult = new SongViewModel()
+            FullTrack track = _SpotifyClient.Search.Item(rq).Result.Tracks.Items.FirstOrDefault();
+            SongViewModel searchResult;
+            if (track == null)
             {
-                SearchQuery = songVM.SearchQuery,
-                SpotifyId = track.Id,
-                ArtistName = track.Artists.FirstOrDefault().Name,
-                ArtistId = track.Artists.FirstOrDefault().Id,
-                SongName = track.Name
-            };
+                searchResult = new SongViewModel()
+                {
+                    SearchQuery = songVM.SearchQuery,
+                    SpotifyId = "NULL",
+                    ArtistName = "",
+                    ArtistId = "NULL",
+                    SongName = ""
+                };
+            } else
+            {
+                searchResult = new SongViewModel()
+                {
+                    SearchQuery = songVM.SearchQuery,
+                    SpotifyId = track.Id,
+                    ArtistName = track.Artists.FirstOrDefault().Name,
+                    ArtistId = track.Artists.FirstOrDefault().Id,
+                    SongName = track.Name,
+                    ImageUrl = track.Album.Images[2].Url,
+                    TrackURI = track.Uri,
+                    AlbumName = track.Album.Name
+
+                };
+            }
             ModelState.Clear();
             return View("Create", searchResult);
         }
-
-        private int GetPlaylistId()
+        private int GetPlaylistId(bool Source)
         {
             string userId = _userManager.GetUserId(User);
 
-            var playlist = _context.Playlist.Where(x => x.UserId == userId && x.Source).FirstOrDefault();
+            var playlist = _context.Playlist.Where(x => x.UserId == userId && x.Source == Source).FirstOrDefault();
             if (playlist is null)
             {
-                var saved = _context.Add(new Playlist(){
-                    Source = true,
+                var saved = _context.Add(new Playlist()
+                {
+                    Source = Source,
                     UserId = userId
                 });
                 _context.SaveChanges();
                 return saved.Entity.PlaylistId;
-            } else return playlist.PlaylistId;
+            }
+            else return playlist.PlaylistId;
         }
         // POST: Seed/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName")] SongViewModel songVM)
+        public async Task<IActionResult> Create([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl,TrackURI, AlbumName")] SongViewModel songVM)
         {
             Song newSong = new Song()
             {
@@ -106,10 +125,13 @@ namespace MusicRCM.Controllers
                 SongName = songVM.SongName,
                 ArtistName = songVM.ArtistName,
                 ArtistId = songVM.ArtistId,
-                PlaylistId = GetPlaylistId()
+                PlaylistId = GetPlaylistId(true),
+                ImageUrl = songVM.ImageUrl,
+                TrackURI = songVM.TrackURI,
+                AlbumName = songVM.AlbumName
             };
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && newSong.SpotifyId != "NULL")
             {
                 _context.Add(newSong);
                 await _context.SaveChangesAsync();

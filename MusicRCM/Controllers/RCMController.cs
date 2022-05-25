@@ -81,6 +81,7 @@ namespace MusicRCM.Controllers
             TracksRequest TR = new TracksRequest(ids);
 
             var tracks = _SpotifyClient.Tracks.GetSeveral(TR).Result.Tracks;
+            if (tracks == null) return result;
             int Pid = GetPlaylistId(false);
             foreach(var track in tracks)
             {
@@ -91,7 +92,10 @@ namespace MusicRCM.Controllers
                     ArtistName = track.Artists.FirstOrDefault().Name,
                     ArtistId = track.Artists.FirstOrDefault().Id,
                     Popularity = track.Popularity,
-                    PlaylistId = Pid
+                    ImageUrl = track.Album.Images[2].Url,
+                    PlaylistId = Pid,
+                    TrackURI = track.Uri,
+                    AlbumName = track.Album.Name
                 });
             }
             return result;
@@ -111,20 +115,37 @@ namespace MusicRCM.Controllers
             for(int i = 0; i < Seed.Count; i += 5)
             {
                 RecommendationsRequest rr = new RecommendationsRequest();
-                Seed.GetRange(0, i + 5 < Seed.Count ? i + 5 : Seed.Count).ForEach(x => {
+                Seed.GetRange(i, i + 5 < (Seed.Count - 1) ? 5 : (Seed.Count - i)).ForEach(x => {
                     rr.SeedTracks.Add(x.SpotifyId); 
                 });
                 rr.Limit = avr_rcm;
                 var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result.Tracks;
-                RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
+                if(RCM != null) RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
 
             }
+            RemoveExisting(RCMids);
             List<Song> songModels = PopulateData(RCMids).OrderBy(x => x.Popularity).Take(amount).ToList();
             _context.AddRange(songModels);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        public void RemoveExisting(List<string> Ids)
+        {
+            int PI = GetPlaylistId(true);
+            var source = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI).Select(x => x.SpotifyId);
+            foreach(string newID in Ids)
+            {
+                if (Ids.FindAll(x => x == newID).Count > 1)
+                {
+                    Ids.Remove(newID);
+                    continue;
+                }
+                if (source.Contains(newID))
+                {
+                    Ids.Remove(newID);
+                }
+            }
+        }
         // GET: RCM/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -147,7 +168,7 @@ namespace MusicRCM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SongId,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName")] Song song)
+        public async Task<IActionResult> Edit(int id, [Bind("SongId,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,TrackURI")] Song song)
         {
             if (id != song.SongId)
             {
@@ -193,8 +214,56 @@ namespace MusicRCM.Controllers
             {
                 return NotFound();
             }
+            _context.Song.Remove(song);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-            return View(song);
+        public async Task<IActionResult> Clear()
+        {
+            int PI = GetPlaylistId(false);
+            var musicDBContext = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI);
+            _context.Song.RemoveRange(musicDBContext);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Playlist()
+        {
+            var loginRequest = new LoginRequest(
+                new Uri("https://localhost:44374/RCM/Callback"),
+                "5b7bba93ab5a4d87a33c16afeac6960e",
+                LoginRequest.ResponseType.Code
+              )
+            {
+                Scope = new[] { Scopes.PlaylistReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistModifyPrivate }
+            };
+            var uri = loginRequest.ToUri();
+
+            return Redirect(uri.ToString());
+        }
+
+        public async Task<IActionResult> Callback(string code)
+        {
+            var response = await new OAuthClient().RequestToken(
+              new AuthorizationCodeTokenRequest("5b7bba93ab5a4d87a33c16afeac6960e", "aeddda90a0af4b7f804023a42c85174a", code, new Uri("https://localhost:44374/RCM/Callback"))
+            );
+            var config = SpotifyClientConfig
+              .CreateDefault()
+              .WithAuthenticator(new AuthorizationCodeAuthenticator("ClientId", "ClientSecret", response));
+
+            var spotify = new SpotifyClient(config);
+
+
+            string userId = spotify.UserProfile.Current().Result.Id;
+            var playlist = await spotify.Playlists.Create(userId, new PlaylistCreateRequest("Recomended"));
+
+            int PI = GetPlaylistId(false);
+            List<string> RCMids = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI).Select(x => x.TrackURI).ToList();
+            PlaylistAddItemsRequest addingRQ = new PlaylistAddItemsRequest(RCMids);
+            var res = await spotify.Playlists.AddItems(playlist.Id, addingRQ);
+            return RedirectToAction(nameof(Index));
+
+            // Also important for later: response.RefreshToken
         }
 
         // POST: RCM/Delete/5

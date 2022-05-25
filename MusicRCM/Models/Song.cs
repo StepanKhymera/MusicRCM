@@ -29,6 +29,12 @@ namespace MusicRCM.Models
         public int Popularity { get; set; }
         [Column("playlist_id")]
         public int PlaylistId { get; set; }
+        [Column("imageUrl")]
+        public string ImageUrl { get; set; }
+        [Column("trackURI")]
+        public string TrackURI { get; set; }
+        [Column("albumName")]
+        public string AlbumName { get; set; }
         [ForeignKey(nameof(PlaylistId))]
         [InverseProperty("Songs")]
         public virtual Playlist Playlist { get; set; }

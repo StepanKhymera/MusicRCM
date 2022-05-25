@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicRCM.Data;
 
 namespace MusicRCM.Migrations
 {
     [DbContext(typeof(MusicDBContext))]
-    partial class MusicDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220525161506_albumName")]
+    partial class albumName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
