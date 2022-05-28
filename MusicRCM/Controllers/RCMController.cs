@@ -51,23 +51,23 @@ namespace MusicRCM.Controllers
         }
 
         // GET: RCM/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var song = await _context.Song
-                .Include(s => s.Playlist)
-                .FirstOrDefaultAsync(m => m.SongId == id);
-            if (song == null)
-            {
-                return NotFound();
-            }
+        //    var song = await _context.Song
+        //        .Include(s => s.Playlist)
+        //        .FirstOrDefaultAsync(m => m.SongId == id);
+        //    if (song == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(song);
-        }
+        //    return View(song);
+        //}
 
         // GET: RCM/Create
         public IActionResult Create()
@@ -75,6 +75,7 @@ namespace MusicRCM.Controllers
             ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId");
             return View();
         }
+
         private List<Song> PopulateData(List<string> ids)
         {
             List<Song> result = new List<Song>();
@@ -147,57 +148,57 @@ namespace MusicRCM.Controllers
             }
         }
         // GET: RCM/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var song = await _context.Song.FindAsync(id);
-            if (song == null)
-            {
-                return NotFound();
-            }
-            ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
-            return View(song);
-        }
+        //    var song = await _context.Song.FindAsync(id);
+        //    if (song == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
+        //    return View(song);
+        //}
 
         // POST: RCM/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SongId,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,TrackURI")] Song song)
-        {
-            if (id != song.SongId)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("SongId,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,TrackURI")] Song song)
+        //{
+        //    if (id != song.SongId)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(song);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SongExists(song.SongId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
-            return View(song);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(song);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!SongExists(song.SongId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
+        //    return View(song);
+        //}
 
         // GET: RCM/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -267,15 +268,15 @@ namespace MusicRCM.Controllers
         }
 
         // POST: RCM/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var song = await _context.Song.FindAsync(id);
-            _context.Song.Remove(song);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var song = await _context.Song.FindAsync(id);
+        //    _context.Song.Remove(song);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool SongExists(int id)
         {
