@@ -93,13 +93,18 @@ namespace MusicRCM.Controllers
                     ArtistName = track.Artists.FirstOrDefault().Name,
                     ArtistId = track.Artists.FirstOrDefault().Id,
                     Popularity = track.Popularity,
-                    ImageUrl = track.Album.Images[2].Url,
+                    ImageUrl = track.Album.Images[0].Url,
                     PlaylistId = Pid,
                     TrackURI = track.Uri,
-                    AlbumName = track.Album.Name
+                    AlbumName = track.Album.Name,
+                    Duration = ToMinutes(track.DurationMs)
                 });
             }
             return result;
+        }
+        private string ToMinutes(int ms)
+        {
+            return $"{ms / 60000}m {ms / 1000}s";
         }
         // POST: RCM/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

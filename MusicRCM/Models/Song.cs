@@ -35,6 +35,8 @@ namespace MusicRCM.Models
         public string TrackURI { get; set; }
         [Column("albumName")]
         public string AlbumName { get; set; }
+        [Column("duration")]
+        public string Duration { get; set; }
         [ForeignKey(nameof(PlaylistId))]
         [InverseProperty("Songs")]
         public virtual Playlist Playlist { get; set; }

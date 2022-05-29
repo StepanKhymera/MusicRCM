@@ -1,6 +1,7 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -11,7 +12,12 @@ a.navbar-brand {
 a {
   color: #0366d6;
 }
-
+.album {
+    width: 152px;
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -60,7 +66,8 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 0px;
+  font-family: 'Montserrat';
 }
 .footer {
   position: absolute;
@@ -69,4 +76,42 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+td {
+    vertical-align: middle;
+    max-width: 400px;
+    overflow-wrap: break-word;
+}
+table {
+    font-family: 'Montserrat';
+    font-size: 25px;
+    font-weight: 300;
+    font-weight: 600;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 12px;
+}
+#rcm_table{
 
+}
+#seed_table{
+
+}
+.black_text{color: black; }
+h1{
+    text-align: center;
+    padding-top: 16px;
+  font-weight: bold;
+}
+#addIcon{
+
+}
+.top_icon {height: auto;width: 60px;margin-left: 14px;fill: #eb9f22;margin-right: 15px;margin-bottom: 12px;}
+.icon_text {
+    font-size: 25px;
+    display: inline;
+    font-weight: bolder;
+    display: inline;
+}
+.fa-trash{
+  color: #eb9f22;
+}

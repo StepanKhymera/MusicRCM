@@ -21,30 +21,14 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
+<table class="table" id="rcm_table">
 
-            </th>
-            <th>
-                Song
-            </th>
-            <th>
-                Artist
-            </th>
-            <th>
-                Album
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
         @foreach (var item in Model)
         {
         <tr>
             <td>
-                <a href="https://open.spotify.com/track/@item.SpotifyId"><img src="@item.ImageUrl"></a>
+                <a href="https://open.spotify.com/track/@item.SpotifyId"><img class="album" src="@item.ImageUrl"></a>
             </td>
             <td>
                 <a href="https://open.spotify.com/track/@item.SpotifyId">
@@ -60,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.AlbumName)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.SongId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.SongId"><i class="fa-solid fa-trash"></i></a>
             </td>
         </tr>
         }

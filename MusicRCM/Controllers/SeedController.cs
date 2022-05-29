@@ -61,7 +61,7 @@ namespace MusicRCM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Search([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl, TrackURI, AlbumName")] SongViewModel songVM)
+        public async Task<IActionResult> Search([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl, TrackURI, AlbumName, Duration")] SongViewModel songVM)
         {
             SearchRequest rq = new SearchRequest(SearchRequest.Types.Track, songVM.SearchQuery);
             rq.Limit = 1;
@@ -86,14 +86,19 @@ namespace MusicRCM.Controllers
                     ArtistName = track.Artists.FirstOrDefault().Name,
                     ArtistId = track.Artists.FirstOrDefault().Id,
                     SongName = track.Name,
-                    ImageUrl = track.Album.Images[2].Url,
+                    ImageUrl = track.Album.Images[0].Url,
                     TrackURI = track.Uri,
-                    AlbumName = track.Album.Name
+                    AlbumName = track.Album.Name,
+                    Duration = ToMinutes(track.DurationMs)
 
                 };
             }
             ModelState.Clear();
             return View("Create", searchResult);
+        }
+        private string ToMinutes(int ms)
+        {
+            return $"{ms / 60000}m {ms / 1000}s";
         }
         private int GetPlaylistId(bool Source)
         {
@@ -117,7 +122,7 @@ namespace MusicRCM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl,TrackURI, AlbumName")] SongViewModel songVM)
+        public async Task<IActionResult> Create([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl,TrackURI, AlbumName,Duration")] SongViewModel songVM)
         {
             Song newSong = new Song()
             {
@@ -128,7 +133,8 @@ namespace MusicRCM.Controllers
                 PlaylistId = GetPlaylistId(true),
                 ImageUrl = songVM.ImageUrl,
                 TrackURI = songVM.TrackURI,
-                AlbumName = songVM.AlbumName
+                AlbumName = songVM.AlbumName,
+                Duration = songVM.Duration
             };
 
             if (ModelState.IsValid && newSong.SpotifyId != "NULL")
