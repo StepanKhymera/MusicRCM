@@ -10,7 +10,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #eb9f22;
 }
 .album {
     width: 152px;
@@ -96,7 +96,7 @@ table {
 #seed_table{
 
 }
-.black_text{color: black; }
+.black_text{color: black;}
 h1{
     text-align: center;
     padding-top: 16px;
@@ -105,13 +105,30 @@ h1{
 #addIcon{
 
 }
-.top_icon {height: auto;width: 60px;margin-left: 14px;fill: #eb9f22;margin-right: 15px;margin-bottom: 12px;}
+.top_icon {height: auto;width: 45px;margin-left: 14px;fill: #eb9f22;margin-right: 15px;margin-bottom: 12px;}
 .icon_text {
-    font-size: 25px;
+    font-size: 23px;
     display: inline;
     font-weight: bolder;
     display: inline;
+    color: #eb9f22;
 }
 .fa-trash{
   color: #eb9f22;
+}
+
+  .navbar { background-color: #484848; }
+.navbar .navbar-nav .nav-link { color: #fff; }
+.navbar .navbar-nav .nav-link:hover {color: #eb9f22;}
+.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
+
+footer a.text-light:hover { color: #fed136!important; text-decoration: none; }
+footer .cizgi { border-right: 1px solid #535e67; }
+media (max-width: 992px) { footer .cizgi { border-right: none; } }
+
+.nav_icon{margin-right: 12px;}
+
+.nac_caption{font-size: 24px;/* margin-bottom: 19px; */vertical-align: bottom;display: inline;}
+#LGT{
+  margin-left: 125px;
 }
