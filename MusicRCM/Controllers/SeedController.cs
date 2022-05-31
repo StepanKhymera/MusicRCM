@@ -13,6 +13,7 @@ using SpotifyAPI.Web;
 
 namespace MusicRCM.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class SeedController : Controller
     {
         private readonly MusicDBContext _context;

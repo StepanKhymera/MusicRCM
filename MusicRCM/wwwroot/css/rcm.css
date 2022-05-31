@@ -1,0 +1,55 @@
+body {
+    background-image: url("https://i.pinimg.com/originals/9b/2b/11/9b2b11b7ab6727bf65493a5d1cf52e5c.jpg");
+}
+
+main {
+    background-color: white;
+    border-right: 2px solid #eb9f22;
+    border-left: 2px solid #eb9f22;
+}
+
+#RCM {
+    color: #eb9f22;
+}
+#create_butn{
+    color: #eb9f22;
+    border-color: #eb9f22;
+    font-weight: bolder;
+    body-color: #eb9f22;
+}
+#amount_box{
+    width: 59px;
+    margin-left: 16px;
+    margin-right: 9px;
+    border-color: #eb9f22;
+    border-radius: 5px;
+    height: 45px;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: right;
+    border: 1px solid #eb9f22;
+    padding-right: 7px;
+}
+#create_form_action{
+    display: inline;
+}
+
+input[type=tel]:focus{
+  outline: 2px solid orange;    
+}
+#Spotify_icon{
+  height: auto;
+  width: 26px;
+  margin-bottom: -5px;
+  fill: #eb9f22;
+  margin-right: 4px;
+}
+
+.headerDivider {
+     border-left:1px solid #38546d; 
+     border-right:1px solid #16222c; 
+     height:80px;
+     position:absolute;
+     right:249px;
+     top:10px; 
+}

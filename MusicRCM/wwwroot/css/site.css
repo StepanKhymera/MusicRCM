@@ -89,13 +89,10 @@ table {
     margin-left: 16px;
     margin-right: 16px;
     margin-top: 12px;
+    width: auto;
 }
-#rcm_table{
-
-}
-#seed_table{
-
-}
+#rcm_table{margin-top: 0px;}
+#seed_table{margin-top: 0px;}
 .black_text{color: black;}
 h1{
     text-align: center;
@@ -112,12 +109,13 @@ h1{
     font-weight: bolder;
     display: inline;
     color: #eb9f22;
+    /* margin-top: 20px; */
 }
 .fa-trash{
   color: #eb9f22;
 }
 
-  .navbar { background-color: #484848; }
+  .navbar {background-color: #2e2e2e;}
 .navbar .navbar-nav .nav-link { color: #fff; }
 .navbar .navbar-nav .nav-link:hover {color: #eb9f22;}
 .navbar .navbar-nav .active > .nav-link { color: #fbc531; }
@@ -131,4 +129,15 @@ media (max-width: 992px) { footer .cizgi { border-right: none; } }
 .nac_caption{font-size: 24px;/* margin-bottom: 19px; */vertical-align: bottom;display: inline;}
 #LGT{
   margin-left: 125px;
+}
+.right_item{
+  margin-right: 22px;
+}
+#clear_icon {
+    display: inline;
+    margin-left: 18px;
+    height: auto;
+    width: 25px;
+    margin-right: 4px;
+    font-size: 21px;
 }

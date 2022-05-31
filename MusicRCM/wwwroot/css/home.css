@@ -1,0 +1,97 @@
+body {
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.bangkokproductions.com%2Fwp-content%2Fuploads%2F2018%2F10%2Fmusic-mixer-mastering.jpg&f=1&nofb=1");
+    background-size: cover;
+}
+
+#LOGIN {
+    background-color: white;
+    width: 528px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 18px;
+}
+
+main {background: white;height: inherit;border-bottom-right-radius: 30px;border-bottom-left-radius: 30px;border-left: 2px solid #eb9f22;border-right: 2px solid #eb9f22;border-bottom: 2px solid #eb9f22;}
+
+main.pb-3 {}
+
+#bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+#REGS {
+    background-color: white;
+    width: 528px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 18px;
+}
+
+#login_butn {
+    color: #eb9f22;
+    border-color: #eb9f22;
+    font-weight: bolder;
+    body-color: #eb9f22;
+}
+
+#logIn {
+}
+
+#register {
+    margin-bottom: 0;
+    margin-top: 11px;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#Input_Email, #Input_Password, #Input_Name, #Input_Country, #Input_ConfirmPassword {
+    border-color: #eb9f22;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    background-color: white !important;
+}
+
+&:-webkit-autofill::first-line {
+    font-family: 'Montserrat', serif !important;
+}
+
+#account {
+    font-weight: bold;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+#general{
+    display: flex;
+    justify-content: center;
+}
+strong{
+    color: #eb9f22;
+}
+#master_plan {height: auto;margin-right: 30px;}
+
+#intro_text {font-size: 26px;font-weight: 900;display: flex;flex-direction: column;justify-content: space-around;}
+
+#t1 {
+}
+
+#t2 {
+}
+
+#t3 {
+}
+#title{
+    fill: #eb9f22;
+    color: #eb9f22;
+}
