@@ -79,7 +79,7 @@ body {
 td {
     vertical-align: middle;
     max-width: 400px;
-    overflow-wrap: break-word;
+    /* overflow-wrap: break-word; */
 }
 table {
     font-family: 'Montserrat';

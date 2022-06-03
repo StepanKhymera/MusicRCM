@@ -8,10 +8,9 @@
 
 <h1>Create</h1>
 
-<h4>Song</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="">
+    <div class="">
         <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -29,32 +28,43 @@
             <div class="form-group">
                 <input type="hidden" asp-for="ImageUrl" class="form-control" />
             </div>
-
+            <div class="form-group">
+                <input type="hidden" asp-for="Duration" class="form-control" />
+            </div>
             <div id="main_div">
-                <div id="left" >
+                <div id="left">
                     <div>
-                        <p>Type any combination of name, artist or album for the desired song/</p>
+                        <p id="search_caption">Type any combination of name, artist or album for the desired song.</p>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="SearchQuery" class="control-label"></label>
-                        <input id="SearchQuery" asp-for="SearchQuery" class="form-control" />
-                        <span asp-validation-for="SearchQuery" class="text-danger"></span>
+                    <div id="search_box">
+                        <div class="form-group">
+                            <label asp-for="SearchQuery" class="control-label">Search field</label>
+                            <input id="SearchQuery" asp-for="SearchQuery" class="form-control input_field" />
+                            <span asp-validation-for="SearchQuery" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input type="submit" name="response" value="Search" formaction=@Url.Action("Search") formmethod="post" id="search_butn" class="btn btn-outline-light icon_text" />
+                            <input type="submit" name="response" value="Save" formaction=@Url.Action("Create") formmethod="post" id="search_butn" class="btn btn-outline-light icon_text" />
+                            <a asp-action="Index" id="search_butn" class="btn btn-outline-light icon_text">Cancel</a>
+
+                        </div>
+
                     </div>
-                    
+
                 </div>
-              
+                <div style="border-left: 2px solid #eb9f22;width: 0px;"></div>
                 <div id="right">
 
 
                     <div class="form-group">
-                        <label asp-for="SongName" class="control-label"></label>
-                        <input asp-for="SongName" class="form-control" />
+                        <label asp-for="SongName" class="control-label">Name</label>
+                        <input asp-for="SongName" class="form-control input_field" />
                         <span asp-validation-for="SongName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="ArtistName" class="control-label"></label>
-                        <input asp-for="ArtistName" class="form-control" />
+                        <label asp-for="ArtistName" class="control-label">Artist</label>
+                        <input asp-for="ArtistName" class="form-control input_field" />
                         <span asp-validation-for="ArtistName" class="text-danger"></span>
                     </div>
                 </div>
@@ -62,8 +72,7 @@
 
             @*<input type="submit" name="answer" value="Create" class="btn btn-success" />
         <input type="submit" name="answer" value="Search" class="btn btn-danger" />*@
-            <input type="submit" name="response" value="Create" formaction=@Url.Action("Create") formmethod="post" class="btn btn-primary" />
-            <input type="submit" name="response" value="Search" formaction=@Url.Action("Search") formmethod="post" class="btn btn-default" />
+
             @using (Html.BeginForm("Create", "Seed"))
 
 
@@ -80,10 +89,6 @@
             }
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -79,7 +79,7 @@ select:-webkit-autofill:focus {
 strong{
     color: #eb9f22;
 }
-#master_plan {height: auto;margin-right: 30px;}
+#master_plan {/* height: auto; */margin-top: 20px;margin-right: 30px;}
 
 #intro_text {font-size: 26px;font-weight: 900;display: flex;flex-direction: column;justify-content: space-around;}
 
