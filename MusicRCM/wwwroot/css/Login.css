@@ -9,9 +9,12 @@ body {
     padding-left: 30px;
     padding-right: 30px;
     border-radius: 18px;
+    border-left: 2px solid #eb9f22;
+    border-right: 2px solid #eb9f22;
+    border-bottom: 2px solid #eb9f22;
 }
 main {
-
+  
 }
 #bottom{display: flex;justify-content: space-between;}
 #REGS {
@@ -20,6 +23,9 @@ main {
     padding-left: 30px;
     padding-right: 30px;
     border-radius: 18px;
+    border-left: 2px solid #eb9f22;
+    border-right: 2px solid #eb9f22;
+    border-bottom: 2px solid #eb9f22;
 }
 #login_butn {
     color: #eb9f22;

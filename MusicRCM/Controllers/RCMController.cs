@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -116,25 +117,42 @@ namespace MusicRCM.Controllers
         {
             int SPI = GetPlaylistId(true);
             var Seed = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == SPI).ToList();
-            int avr_rcm = (int)Math.Ceiling((amount / 5.0) * Seed.Count);
-            if (avr_rcm < 5) avr_rcm = 5;
-            List<string> RCMids = new List<string>();
-            for(int i = 0; i < Seed.Count; i += 5)
-            {
-                RecommendationsRequest rr = new RecommendationsRequest();
-                Seed.GetRange(i, i + 5 < (Seed.Count - 1) ? 5 : (Seed.Count - i)).ForEach(x => {
-                    rr.SeedTracks.Add(x.SpotifyId); 
-                });
-                rr.Limit = avr_rcm;
-                var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result.Tracks;
-                if(RCM != null) RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
+            Recommend algorythm = new Recommend(amount, Seed, _SpotifyClient, GetPlaylistId(false));
 
-            }
-            RemoveExisting(RCMids);
-            List<Song> songModels = PopulateData(RCMids).OrderBy(x => x.Popularity).Take(amount).ToList();
-            _context.AddRange(songModels);
+            Stopwatch timer = new Stopwatch();
+
+            timer.Start();
+            List<Song> result = await algorythm.RunAsync();
+
+
+            timer.Stop();
+
+            Console.WriteLine("\n\n" + timer.Elapsed.ToString() + "\n\n");
+
+            _context.AddRange(result);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
+
+            //int avr_rcm = (int)Math.Ceiling((amount / 5.0) * Seed.Count);
+            //if (avr_rcm < 5) avr_rcm = 5;
+            //List<string> RCMids = new List<string>();
+            //for(int i = 0; i < Seed.Count; i += 5)
+            //{
+            //    RecommendationsRequest rr = new RecommendationsRequest();
+            //    Seed.GetRange(i, i + 5 < (Seed.Count - 1) ? 5 : (Seed.Count - i)).ForEach(x => {
+            //        rr.SeedTracks.Add(x.SpotifyId); 
+            //    });
+            //    rr.Limit = avr_rcm;
+            //    var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result.Tracks;
+            //    if(RCM != null) RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
+
+            //}
+            //RemoveExisting(RCMids);
+            //List<Song> songModels = PopulateData(RCMids).OrderBy(x => x.Popularity).Take(amount).ToList();
+            //_context.AddRange(songModels);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
         }
         public void RemoveExisting(List<string> Ids)
         {

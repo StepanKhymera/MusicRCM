@@ -56,7 +56,6 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\MusicRCM.TagHelpe
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\MusicRCM.TagHelpers.output.cache
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\MusicRCM.RazorCoreGenerate.cache
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -161,14 +160,7 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Areas\Ident
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Create.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Delete.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Details.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Edit.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\Index.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Create.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Delete.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Details.cshtml.g.cs
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Edit.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Index.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\bin\Debug\net5.0\SpotifyAPI.Web.dll
