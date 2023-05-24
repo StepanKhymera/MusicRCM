@@ -41,7 +41,7 @@ namespace MusicRCM.Models
             return result;
         }
 
-        private async Task PlaylistSearchAsync(Song input, BlockingCollection<string> result)
+        public async Task PlaylistSearchAsync(Song input, BlockingCollection<string> result)
         {
             SearchRequest rq = new SearchRequest(SearchRequest.Types.Playlist, $"{input.SongName} {input.ArtistName}");
             rq.Limit = 20;
@@ -51,7 +51,7 @@ namespace MusicRCM.Models
            
         }
 
-        private async Task PlaylistSongLookup(string playlist_id, string artist_id, BlockingCollection<string> master_list)
+        public async Task PlaylistSongLookup(string playlist_id, string artist_id, BlockingCollection<string> master_list)
         {
             PlaylistGetItemsRequest rq = new PlaylistGetItemsRequest(PlaylistGetItemsRequest.AdditionalTypes.Track);
             rq.Fields.Add("items(track(id,type,artists(id)))");
@@ -61,8 +61,9 @@ namespace MusicRCM.Models
             {
                 if (item.Track is FullTrack track)
                 {
-
+                    
                     if(!track.Artists.Any(x => x.Id == artist_id) && track.Id != null)
+                    //if(track.Id != null)
                     {
                         master_list.Add(track.Id);
                     }
@@ -70,7 +71,7 @@ namespace MusicRCM.Models
             }
         }
 
-        private async Task<List<Song>> PopulateDataAsync(List<string> ids)
+        public async Task<List<Song>> PopulateDataAsync(List<string> ids)
         {
             List<Song> result = new List<Song>();
 
@@ -78,7 +79,15 @@ namespace MusicRCM.Models
             if (size == 0) return result;
             for(int i = 0; i <= size/51; ++i)
             {
-                TracksRequest TR = new TracksRequest(ids.GetRange(50*i, (i+1)*50 < (size - 1) ? 50 : (size - 1) - 50*i ));
+                TracksRequest TR;
+                if(size == 1)
+                {
+                    TR = new TracksRequest(ids);
+                }
+                else
+                {
+                    TR = new TracksRequest(ids.GetRange(50 * i, (i + 1) * 50 < (size - 1) ? 50 : (size - 1) - 50 * i));
+                }
 
                 var tracks = (await spotifyClient.Tracks.GetSeveral(TR)).Tracks;
                 if (tracks == null) return result;

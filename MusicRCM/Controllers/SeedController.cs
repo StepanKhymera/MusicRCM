@@ -13,7 +13,7 @@ using SpotifyAPI.Web;
 
 namespace MusicRCM.Controllers
 {
-    [Microsoft.AspNetCore.Authorization.Authorize]
+    //[Microsoft.AspNetCore.Authorization.Authorize]
     public class SeedController : Controller
     {
         private readonly MusicDBContext _context;
@@ -41,7 +41,8 @@ namespace MusicRCM.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
+        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Search([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl, TrackURI, AlbumName, Duration")] SongViewModel songVM)
         {
             SearchRequest rq = new SearchRequest(SearchRequest.Types.Track, songVM.SearchQuery);

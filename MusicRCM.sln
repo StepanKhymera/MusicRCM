@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32428.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicRCM", "MusicRCM\MusicRCM.csproj", "{C2AE5E0B-F9C9-42FD-8F21-98A90E74F144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicRCM", "MusicRCM\MusicRCM.csproj", "{C2AE5E0B-F9C9-42FD-8F21-98A90E74F144}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicRCM.Tests", "MusicRCM.Tests\MusicRCM.Tests.csproj", "{02AF1443-3C6F-4AE4-B1C6-53A45380A7B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C2AE5E0B-F9C9-42FD-8F21-98A90E74F144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2AE5E0B-F9C9-42FD-8F21-98A90E74F144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2AE5E0B-F9C9-42FD-8F21-98A90E74F144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AF1443-3C6F-4AE4-B1C6-53A45380A7B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AF1443-3C6F-4AE4-B1C6-53A45380A7B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AF1443-3C6F-4AE4-B1C6-53A45380A7B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AF1443-3C6F-4AE4-B1C6-53A45380A7B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

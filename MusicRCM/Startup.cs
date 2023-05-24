@@ -38,6 +38,7 @@ namespace MusicRCM
                 .WithAuthenticator(new ClientCredentialsAuthenticator("5b7bba93ab5a4d87a33c16afeac6960e", "aeddda90a0af4b7f804023a42c85174a"))));
             services.AddDbContext<MusicDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
             //services.AddDbContext<MusicDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("MusicDBContextConnection")));
+            services.AddAntiforgery(options => { options.Cookie.Expiration = TimeSpan.Zero; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
