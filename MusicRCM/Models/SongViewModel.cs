@@ -8,8 +8,13 @@ namespace MusicRCM.Models
 {
     public class SongViewModel
     {
+        public IEnumerable<MusicRCM.Models.Song> songs;
         public SongViewModel()
         {
+        }
+        public SongViewModel(IEnumerable<MusicRCM.Models.Song> _songs)
+        {
+            songs = _songs;
         }
         [Key]
         public int SongId { get; set; }
@@ -24,6 +29,7 @@ namespace MusicRCM.Models
         public string TrackURI { get; set; }
         public string AlbumName { get; set; }
         public string Duration { get; set; }
+        public Boolean AuthorSearch { get; set; }
 
 
     }

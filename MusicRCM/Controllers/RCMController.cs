@@ -113,7 +113,7 @@ namespace MusicRCM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int amount)
+        public async Task<IActionResult> Create(int amount, bool IsPopularityChecked = false, bool IsAuthorsChecked = false)
         {
             int SPI = GetPlaylistId(true);
             var Seed = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == SPI).ToList();

@@ -13,7 +13,7 @@ a {
   color: #eb9f22;
 }
 .album {
-    width: 152px;
+    width: 90px;
     height: 100%;
     aspect-ratio: 1;
     object-fit: cover;
@@ -92,7 +92,7 @@ table {
     width: auto;
 }
 #rcm_table{margin-top: 0px;}
-#seed_table{margin-top: 0px;}
+#seed_table{margin-top: 0px;display: block;}
 .black_text{color: black;}
 h1{
     text-align: center;
@@ -105,7 +105,7 @@ h1{
 .top_icon {height: auto;width: 45px;margin-left: 14px;fill: #eb9f22;margin-right: 15px;margin-bottom: 12px;}
 .icon_text {
     font-size: 23px;
-    display: inline;
+    /* display: inline; */
     font-weight: bolder;
     /* display: inline; */
     color: #eb9f22;
@@ -131,7 +131,7 @@ media (max-width: 992px) { footer .cizgi { border-right: none; } }
   margin-left: 125px;
 }
 .right_item{
-  margin-right: 22px;
+  /* margin-right: 22px; */
 }
 #clear_icon {
     display: inline;
@@ -143,4 +143,34 @@ media (max-width: 992px) { footer .cizgi { border-right: none; } }
 }
 hr{
       border-top: 1px solid #eb9f22;
+}
+
+.container{
+  max-width: none;
+    width: fit-content;
+}
+
+#search_butn {
+    color: #eb9f22;
+    border-color: #eb9f22;
+    font-weight: bolder;
+    body-color: #eb9f22;
+}
+
+#search_butn2 {
+    color: #eb9f22;
+    border-color: #eb9f22;
+    font-weight: bolder;
+    body-color: #eb9f22;
+    margin-bottom: 10px;
+    /* pointer-events: none; */
+}
+.nohover:hover {
+    color: #eb9f22;
+    text-decoration: none;
+}
+body {
+    /*    background-image: url("https://i.pinimg.com/originals/9b/2b/11/9b2b11b7ab6727bf65493a5d1cf52e5c.jpg");*/
+    background-image: url("https://media.istockphoto.com/vectors/notes-pattern-on-beige-background-music-sheet-music-vector-id914020750?k=6&m=914020750&s=612x612&w=0&h=Bw5fLNGb8S1OwlX6WrPzUrGGs4sC1HjV8dqggUf27XY=");
+    background-size: 314px;
 }

@@ -163,9 +163,4 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\RCM\I
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Create.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\Razor\Views\Seed\Index.cshtml.g.cs
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM\bin\Debug\net5.0\SpotifyAPI.Web.dll
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\staticwebassets\MusicRCM.StaticWebAssets.Pack.cache
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\staticwebassets\msbuild.MusicRCM.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\staticwebassets\msbuild.build.MusicRCM.props
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.MusicRCM.props
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.MusicRCM.props
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM\obj\Debug\net5.0\refint\MusicRCM.dll
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM\bin\Debug\net5.0\ref\MusicRCM.dll

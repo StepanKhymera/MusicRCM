@@ -268,6 +268,10 @@ namespace MusicRCM.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("artist_name");
 
+                    b.Property<bool>("AuthorSearch")
+                        .HasColumnType("bit")
+                        .HasColumnName("authorSearch");
+
                     b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("duration");

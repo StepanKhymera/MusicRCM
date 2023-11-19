@@ -1,0 +1,146 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #eb9f22;
+}
+.album {
+    width: 152px;
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0px;
+  font-family: 'Montserrat';
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+td {
+    vertical-align: middle;
+    max-width: 400px;
+    /* overflow-wrap: break-word; */
+}
+table {
+    font-family: 'Montserrat';
+    font-size: 25px;
+    font-weight: 300;
+    font-weight: 600;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 12px;
+    width: auto;
+}
+#rcm_table{margin-top: 0px;}
+#seed_table{margin-top: 0px;}
+.black_text{color: black;}
+h1{
+    text-align: center;
+    padding-top: 16px;
+  font-weight: bold;
+}
+#addIcon{
+
+}
+.top_icon {height: auto;width: 45px;margin-left: 14px;fill: #eb9f22;margin-right: 15px;margin-bottom: 12px;}
+.icon_text {
+    font-size: 23px;
+    display: inline;
+    font-weight: bolder;
+    /* display: inline; */
+    color: #eb9f22;
+    /* margin-top: 20px; */
+}
+.fa-trash{
+  color: #eb9f22;
+}
+
+  .navbar {background-color: #2e2e2e;}
+.navbar .navbar-nav .nav-link { color: #fff; }
+.navbar .navbar-nav .nav-link:hover {color: #eb9f22;}
+.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
+
+footer a.text-light:hover { color: #fed136!important; text-decoration: none; }
+footer .cizgi { border-right: 1px solid #535e67; }
+media (max-width: 992px) { footer .cizgi { border-right: none; } }
+
+.nav_icon{margin-right: 12px;}
+
+.nac_caption{font-size: 24px;/* margin-bottom: 19px; */vertical-align: bottom;display: inline;}
+#LGT{
+  margin-left: 125px;
+}
+.right_item{
+  margin-right: 22px;
+}
+#clear_icon {
+    display: inline;
+    margin-left: 18px;
+    height: auto;
+    width: 25px;
+    margin-right: 4px;
+    font-size: 21px;
+}
+hr{
+      border-top: 1px solid #eb9f22;
+}

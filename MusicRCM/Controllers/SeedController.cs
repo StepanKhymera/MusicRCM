@@ -27,11 +27,18 @@ namespace MusicRCM.Controllers
         }
 
         // GET: Seed
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SongViewModel _searchResult)
         {
             int PI = GetPlaylistId(true);
             var musicDBContext = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI);
-            return View(await musicDBContext.ToListAsync());
+            if(_searchResult.SpotifyId == default)
+            {
+                return View( new SongViewModel( await musicDBContext.ToListAsync()));
+            } else
+            {
+                _searchResult.songs = await musicDBContext.ToListAsync();
+                return View(_searchResult);
+            }
         }
 
         public IActionResult Create()
@@ -76,7 +83,9 @@ namespace MusicRCM.Controllers
                 };
             }
             ModelState.Clear();
-            return View("Create", searchResult);
+            //return View(searchResult);
+            return RedirectToAction(nameof(Index), searchResult);
+
         }
         private string ToMinutes(int ms)
         {
@@ -144,6 +153,26 @@ namespace MusicRCM.Controllers
             }
             _context.Song.Remove(song);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> CheckBox(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var song = await _context.Song
+                .Include(s => s.Playlist)
+                .FirstOrDefaultAsync(m => m.SongId == id);
+            if (song == null)
+            {
+                return NotFound();
+            }
+            song.AuthorSearch = !song.AuthorSearch;
+            _context.Update(song);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
     }

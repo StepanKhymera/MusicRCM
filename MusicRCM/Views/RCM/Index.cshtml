@@ -6,17 +6,61 @@
 }
 <link rel="stylesheet" href="~/css/rcm.css" />
 
-<h1>Explore new music</h1>
+<div class="rcm_page">
 
-@*<p style="display: inline;  padding-left: 0px;">*@
-    <div style=" display: flex; justify-content: space-between;">
+    <table class="table" id="rcm_table">
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="black_text" href="https://open.spotify.com/track/@item.SpotifyId">
+                            @Html.DisplayFor(modelItem => item.SongName)
+                        </a>
+                    </td>
+                    <td>
+                        <a class="black_text" href="https://open.spotify.com/artist/@item.ArtistId">
+                            @Html.DisplayFor(modelItem => item.ArtistName)
+                        </a>
+                    </td>
+                    <td>
+                        <a href="https://open.spotify.com/track/@item.SpotifyId">
+                            <img class="album"
+                                 src="@item.ImageUrl">
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AlbumName)
+                    </td>
+
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.SongId"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div class="RCM_sidebar">
         <div>
             <form asp-action="Create" id="create_form_action">
+                <div class="options icon_text">
+                    <div class="checkboxx">
+                        <label>Factor in popularity</label>
+                        <input id="IsPopularityChecked" type="checkbox" class="rcm_checkbox" name="IsPopularityChecked" value="true" />
+                    </div>
+                    <div class="checkboxx">
+                        <label>Remove similar authors</label>
+                        <input id="IsAuthorsChecked" type="checkbox"  class="rcm_checkbox" name="IsAuthorsChecked" value="true" />
+                    </div>
+                </div>
 
-                <div class="form-group" id="create_form" style="display: flex;" >
+                <div class="form-group" id="create_form">
+
                     <div>
                         <input id="amount_box" type="tel" name="amount" value="10" />
-
                     </div>
                     <div>
                         <input id="create_butn" type="submit" value="Create" class="btn btn-outline-light icon_text" />
@@ -25,76 +69,32 @@
                         <i id="loading" class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: 2s;visibility: hidden;vertical-align: middle;color: #eb9f22;font-size: 35px;margin-left: 8px;margin-top: 6px;"></i>
                     </div>
                 </div>
-</form>
+            </form>
         </div>
-        <div style="display: flex;">
-            <div class="right_item">
-                <a asp-action="Clear">
-                    <i id="clear_icon" class="fa fa-trash-o" aria-hidden="true"></i>
+        <div class="sidebar2">
 
-                    <p  class="icon_text" style="color: #eb9f22;padding-right: 23px;border-right: 2px solid #eb9f22;">
-                        Clear
-                    </p>
+            <div class="right_item btn btn-outline-light icon_text" id="search_butn2">
+                <i id="clear_icon" class="fa fa-trash-o" aria-hidden="true"></i>
+
+                <a asp-action="Clear" class="nohover">
+                    Clear
                 </a>
             </div>
-            <div class="right_item">
-                <a asp-action="Playlist">
-                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-                    <svg id="Spotify_icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-                    <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
-                    <g><g><path d="M500,10C229.3,10,10,229.3,10,500c0,270.6,219.3,490,490,490c270.7,0,490-219.4,490-490C990,229.3,770.8,10,500,10z M693.7,750.7c-9.6,0-16.4-3.7-23.4-8C604,702.6,522,681.5,433.2,681.5c-45.3,0-94.3,5.4-145.3,15.9l-6.2,1.6c-6.5,1.6-13.1,3.3-18.2,3.3c-20.7,0-36.8-16-36.8-36.5c0-20.8,11.7-35.5,31.3-39.1c61-13.9,118.5-20.7,175.5-20.7c103.3,0,195.6,23.9,274.6,71.2c13.5,7.9,22.1,17,22.1,37.2C730,734.4,713.7,750.7,693.7,750.7L693.7,750.7z M744.5,608.1c-11.5,0-19.1-4.4-25.8-8.3c-119.3-70.8-297-94.3-443.3-55.3c-2.5,0.7-4.7,1.4-6.7,2.1c-5.5,1.7-10.6,3.5-17.9,3.5c-24.1,0-43.6-19.7-43.6-43.9c0-23.3,12.2-39.6,34.2-45.9c56.4-15.5,109.4-25.7,185.6-25.7c123.2,0,242.6,30.9,336.2,86.9c17,9.7,24.8,23.1,24.8,42.9C788.1,588.5,768.5,608.1,744.5,608.1L744.5,608.1z M802.2,445.5c-10.9,0-17.5-2.6-27.6-8c-80.9-48.6-207.1-77.5-338-77.5c-68.2,0-130.1,7.5-184.1,22.1c-1.8,0.4-3.6,0.9-5.5,1.5c-5.7,1.7-12.9,3.8-20.3,3.8c-28.7,0-51.2-22.7-51.2-51.7c0-25.2,14.1-44.5,37.9-51.5c65.2-19.3,140.3-29,223.1-29c149.1,0,291,33.1,389.3,90.8c18.5,10.5,27.6,26.5,27.6,48.6C853.5,423.1,831,445.5,802.2,445.5L802.2,445.5z" /></g></g>
+
+
+            <div class="right_item btn btn-outline-light icon_text" id="search_butn2">
+                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                <svg id="Spotify_icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
+                <g><g><path d="M500,10C229.3,10,10,229.3,10,500c0,270.6,219.3,490,490,490c270.7,0,490-219.4,490-490C990,229.3,770.8,10,500,10z M693.7,750.7c-9.6,0-16.4-3.7-23.4-8C604,702.6,522,681.5,433.2,681.5c-45.3,0-94.3,5.4-145.3,15.9l-6.2,1.6c-6.5,1.6-13.1,3.3-18.2,3.3c-20.7,0-36.8-16-36.8-36.5c0-20.8,11.7-35.5,31.3-39.1c61-13.9,118.5-20.7,175.5-20.7c103.3,0,195.6,23.9,274.6,71.2c13.5,7.9,22.1,17,22.1,37.2C730,734.4,713.7,750.7,693.7,750.7L693.7,750.7z M744.5,608.1c-11.5,0-19.1-4.4-25.8-8.3c-119.3-70.8-297-94.3-443.3-55.3c-2.5,0.7-4.7,1.4-6.7,2.1c-5.5,1.7-10.6,3.5-17.9,3.5c-24.1,0-43.6-19.7-43.6-43.9c0-23.3,12.2-39.6,34.2-45.9c56.4-15.5,109.4-25.7,185.6-25.7c123.2,0,242.6,30.9,336.2,86.9c17,9.7,24.8,23.1,24.8,42.9C788.1,588.5,768.5,608.1,744.5,608.1L744.5,608.1z M802.2,445.5c-10.9,0-17.5-2.6-27.6-8c-80.9-48.6-207.1-77.5-338-77.5c-68.2,0-130.1,7.5-184.1,22.1c-1.8,0.4-3.6,0.9-5.5,1.5c-5.7,1.7-12.9,3.8-20.3,3.8c-28.7,0-51.2-22.7-51.2-51.7c0-25.2,14.1-44.5,37.9-51.5c65.2-19.3,140.3-29,223.1-29c149.1,0,291,33.1,389.3,90.8c18.5,10.5,27.6,26.5,27.6,48.6C853.5,423.1,831,445.5,802.2,445.5L802.2,445.5z" /></g></g>
                      </svg>
-                    <p class="icon_text" style="color: #eb9f22;">
-                        Add to spotify
-                    </p>
+                <a asp-action="Playlist" class="nohover">
+                    Add to spotify
                 </a>
             </div>
+
         </div>
     </div>
-@*</p>*@
+</div>
 
-<table class="table" id="rcm_table">
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <a href="https://open.spotify.com/track/@item.SpotifyId">
-                        <img class="album"
-                             src="@item.ImageUrl">
-                    </a>
-                </td>
-                <td class="black_text">
-                    <div>
-                        <a class="black_text" href="https://open.spotify.com/track/@item.SpotifyId">
-                            @Html.DisplayFor(modelItem => item.SongName)
-                        </a>
-                    </div>
-                    <div>
-                        <br>
-
-                    </div>
-                    <div>
-                        <a class="black_text" href="https://open.spotify.com/artist/@item.ArtistId">
-                            @Html.DisplayFor(modelItem => item.ArtistName)
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AlbumName)
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.SongId"><i class="fa-solid fa-trash"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<script>
-    var buttonUp = document.getElementById('create_butn');
-    buttonUp.onclick = function () {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
-        document.getElementById("loading").style.visibility = "visible";
-    }
    
-</script>

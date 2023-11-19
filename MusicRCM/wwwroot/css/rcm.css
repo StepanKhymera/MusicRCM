@@ -1,6 +1,4 @@
-body {
-    background-image: url("https://i.pinimg.com/originals/9b/2b/11/9b2b11b7ab6727bf65493a5d1cf52e5c.jpg");
-}
+ 
 
 main {
     background-color: white;
@@ -52,4 +50,56 @@ input[type=tel]:focus{
      position:absolute;
      right:249px;
      top:10px; 
+}
+
+.rcm_page {
+    display: flex;
+    flex-direction: row;
+}
+
+#create_form{
+  display: flex;
+  margin-top: 14px;
+}
+.RCM_sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.sidebar2{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.checkboxx{
+    display: flex;
+    flex-direction: row-reverse;
+    color: #eb9f22;
+    border-color: #eb9f22;
+    font-weight: bolder;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.rcm_checkbox{
+    height: 22px;
+    width: 22px;
+    margin-bottom: 10px;
+    margin-right: 6px;
+    border-color: #eb9f22;
 }

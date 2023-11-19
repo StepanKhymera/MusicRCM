@@ -7,7 +7,6 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\MusicRCM.ru
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\MusicRCM.runtimeconfig.dev.json
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\appsettings.json
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\MusicRCM.StaticWebAssets.xml
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\MusicRCM.exe
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\testhost.exe
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -219,7 +218,8 @@ C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Te
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Tests.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Tests.csproj.CopyComplete
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Tests.dll
-C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\refint\MusicRCM.Tests.dll
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Tests.pdb
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\MusicRCM.Tests.genruntimeconfig.cache
 C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\obj\Debug\net5.0\ref\MusicRCM.Tests.dll
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\ref\MusicRCM.Tests.dll
+C:\Users\Admin\source\repos\MusicRCM\MusicRCM.Tests\bin\Debug\net5.0\MusicRCM.StaticWebAssets.xml
