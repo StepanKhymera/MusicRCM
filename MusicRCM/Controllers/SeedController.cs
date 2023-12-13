@@ -175,5 +175,101 @@ namespace MusicRCM.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public static string searchQ;
+
+        public async Task<IActionResult> Playlist([Bind("SongId,SearchQuery,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,ImageUrl, TrackURI, AlbumName, Duration, PlaylistSearch")] SongViewModel songVM)
+        {
+            var loginRequest = new LoginRequest(
+                new Uri("https://localhost:44374/Seed/Callback"),
+                "5b7bba93ab5a4d87a33c16afeac6960e",
+                LoginRequest.ResponseType.Code
+              )
+            {
+                Scope = new[] { Scopes.PlaylistReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistModifyPrivate }
+            };
+            var uri = loginRequest.ToUri();
+            searchQ = songVM.PlaylistSearch;
+            return Redirect(uri.ToString());
+        }
+        public async Task<IActionResult> Callback(string code)
+        {
+            var response = await new OAuthClient().RequestToken(
+              new AuthorizationCodeTokenRequest("5b7bba93ab5a4d87a33c16afeac6960e", "aeddda90a0af4b7f804023a42c85174a", code, new Uri("https://localhost:44374/Seed/Callback"))
+            );
+            var config = SpotifyClientConfig
+              .CreateDefault()
+              .WithAuthenticator(new AuthorizationCodeAuthenticator("ClientId", "ClientSecret", response));
+
+            var spotify = new SpotifyClient(config);
+
+            var plst = await spotify.Playlists.Get(searchQ.Substring(34, 22));
+
+            plst.Tracks.Items.ForEach((x) =>
+            {
+                if (x.Track is FullTrack track)
+                    _context.Add(new Song()
+                    {
+                        SpotifyId = track.Id,
+                        SongName = track.Name,
+                        ArtistName = track.Artists.FirstOrDefault().Name,
+                        ArtistId = track.Artists.FirstOrDefault().Id,
+                        Popularity = track.Popularity,
+                        ImageUrl = track.Album.Images[0].Url,
+                        PlaylistId = GetPlaylistId(true),
+                        TrackURI = track.Uri,
+                        AlbumName = track.Album.Name,
+                        Duration = ToMinutes(track.DurationMs)
+                    });
+            });
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+
+        }
+        public async Task<IActionResult> SavePlaylist()
+        {
+            var loginRequest = new LoginRequest(
+                new Uri("https://localhost:44374/Seed/CallbackCreate"),
+                "5b7bba93ab5a4d87a33c16afeac6960e",
+                LoginRequest.ResponseType.Code
+              )
+            {
+                Scope = new[] { Scopes.PlaylistReadPrivate, Scopes.PlaylistReadCollaborative, Scopes.PlaylistModifyPublic, Scopes.PlaylistModifyPrivate }
+            };
+            var uri = loginRequest.ToUri();
+
+            return Redirect(uri.ToString());
+        }
+
+        public async Task<IActionResult> CallbackCreate(string code)
+        {
+            var response = await new OAuthClient().RequestToken(
+              new AuthorizationCodeTokenRequest("5b7bba93ab5a4d87a33c16afeac6960e", "aeddda90a0af4b7f804023a42c85174a", code, new Uri("https://localhost:44374/Seed/CallbackCreate"))
+            );
+            var config = SpotifyClientConfig
+              .CreateDefault()
+              .WithAuthenticator(new AuthorizationCodeAuthenticator("ClientId", "ClientSecret", response));
+
+            var spotify = new SpotifyClient(config);
+
+
+            string userId = spotify.UserProfile.Current().Result.Id;
+            var playlist = await spotify.Playlists.Create(userId, new PlaylistCreateRequest("Source"));
+
+            int PI = GetPlaylistId(true);
+            List<string> RCMids = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI).Select(x => x.TrackURI).ToList();
+            PlaylistAddItemsRequest addingRQ = new PlaylistAddItemsRequest(RCMids);
+            var res = await spotify.Playlists.AddItems(playlist.Id, addingRQ);
+            return RedirectToAction(nameof(Index));
+
+        }
+        public async Task<IActionResult> Clear()
+        {
+            int PI = GetPlaylistId(true);
+            var musicDBContext = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == PI);
+            _context.Song.RemoveRange(musicDBContext);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

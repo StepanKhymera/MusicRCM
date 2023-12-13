@@ -29,6 +29,8 @@ namespace MusicRCM.Models
         public string TrackURI { get; set; }
         public string AlbumName { get; set; }
         public string Duration { get; set; }
+        public string PlaylistSearch { get; set; }
+
         public Boolean AuthorSearch { get; set; }
 
 

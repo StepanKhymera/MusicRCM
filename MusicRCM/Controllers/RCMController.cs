@@ -117,7 +117,7 @@ namespace MusicRCM.Controllers
         {
             int SPI = GetPlaylistId(true);
             var Seed = _context.Song.Include(s => s.Playlist).Where(x => x.PlaylistId == SPI).ToList();
-            Recommend algorythm = new Recommend(amount, Seed, _SpotifyClient, GetPlaylistId(false));
+            Recommend algorythm = new Recommend(amount, Seed, _SpotifyClient, GetPlaylistId(false), IsPopularityChecked, IsAuthorsChecked);
 
             Stopwatch timer = new Stopwatch();
 
@@ -134,25 +134,7 @@ namespace MusicRCM.Controllers
             return RedirectToAction(nameof(Index));
 
 
-            //int avr_rcm = (int)Math.Ceiling((amount / 5.0) * Seed.Count);
-            //if (avr_rcm < 5) avr_rcm = 5;
-            //List<string> RCMids = new List<string>();
-            //for(int i = 0; i < Seed.Count; i += 5)
-            //{
-            //    RecommendationsRequest rr = new RecommendationsRequest();
-            //    Seed.GetRange(i, i + 5 < (Seed.Count - 1) ? 5 : (Seed.Count - i)).ForEach(x => {
-            //        rr.SeedTracks.Add(x.SpotifyId); 
-            //    });
-            //    rr.Limit = avr_rcm;
-            //    var RCM = _SpotifyClient.Browse.GetRecommendations(rr).Result.Tracks;
-            //    if(RCM != null) RCMids = RCMids.Concat(RCM.Select(x => x.Id)).ToList();
 
-            //}
-            //RemoveExisting(RCMids);
-            //List<Song> songModels = PopulateData(RCMids).OrderBy(x => x.Popularity).Take(amount).ToList();
-            //_context.AddRange(songModels);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
         }
         public void RemoveExisting(List<string> Ids)
         {
@@ -171,59 +153,7 @@ namespace MusicRCM.Controllers
                 }
             }
         }
-        // GET: RCM/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var song = await _context.Song.FindAsync(id);
-        //    if (song == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
-        //    return View(song);
-        //}
-
-        // POST: RCM/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("SongId,PlaylistId,SpotifyId,SongName,ArtistId,ArtistName,TrackURI")] Song song)
-        //{
-        //    if (id != song.SongId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(song);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!SongExists(song.SongId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["PlaylistId"] = new SelectList(_context.Playlist, "PlaylistId", "PlaylistId", song.PlaylistId);
-        //    return View(song);
-        //}
-
+      
         // GET: RCM/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

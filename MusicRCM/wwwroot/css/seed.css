@@ -63,10 +63,10 @@ main {
 }
 
 .input_field {
-    width: 92%;
+    /* width: 92%; */
     border: 2px solid #eb9f22;
-    font-weight: 700;
-    font-size: 23px;
+    /* font-weight: 700; */
+    /* font-size: 23px; */
     /* margin-right: 42px; */
 }
 
@@ -86,5 +86,9 @@ main {
     height: 20px;
 }
 
+.pl_search{display: flex;}
 
+.pl_search_item {/* height: 52px; */}
+
+#PlaylistSearch{height: 34px;margin-left: 7px;}
 

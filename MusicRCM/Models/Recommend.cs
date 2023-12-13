@@ -13,14 +13,18 @@ namespace MusicRCM.Models
         ISpotifyClient spotifyClient;
         public List<Song> seed;
         private List<string> seed_id;
+        bool PopularitySort;
+        bool AuthorFilter;
         private int PID;
-        public Recommend(int amnt, List<Song> s, ISpotifyClient _spotifyClient, int _playlistId)
+        public Recommend(int amnt, List<Song> s, ISpotifyClient _spotifyClient, int _playlistId, bool _PopularitySort, bool _AuthorFilter)
         {
             amount = amnt;
             seed = s;
             spotifyClient = _spotifyClient;
             seed_id = seed.Select(x => x.SpotifyId).ToList();
             PID = _playlistId;
+            PopularitySort = _PopularitySort;
+            AuthorFilter = _AuthorFilter;
         }
 
         public async Task<List<Song>> RunAsync()
@@ -28,7 +32,7 @@ namespace MusicRCM.Models
             Dictionary<string, int> ID_amount = null;
             using (BlockingCollection<string> RCM_Ids = new BlockingCollection<string>())
             {
-                Task.WaitAll(seed.Select( i => PlaylistSearchAsync(i, RCM_Ids)).ToArray());
+                Task.WaitAll(seed.Select( i => PlaylistSearchAsync(i, i.AuthorSearch , RCM_Ids)).ToArray());
                 ID_amount = RCM_Ids.GroupBy(z => z).ToDictionary(x => x.Key, x => x.Count());
             }
             if (ID_amount == null) return null;
@@ -36,38 +40,83 @@ namespace MusicRCM.Models
 
             Dictionary<Song, int> song_amount = songs.ToDictionary(x => x, x => ID_amount[x.SpotifyId]);
 
-            List<Song> result = song_amount.OrderByDescending(x => x.Value).ThenBy(x => x.Key.Popularity).Select(x => x.Key).Take(amount).ToList();
+            List<Song> result;
+            if (PopularitySort)
+            {
+                result = song_amount.OrderByDescending(x => (x.Value * 0.5) * (x.Key.Popularity * 0.2)).Select(x => x.Key).Take(amount).ToList();
+            } else
+            {
+                result = song_amount.OrderByDescending(x => x.Value).Select(x => x.Key).Take(amount).ToList();
+            }
 
             return result;
         }
 
-        public async Task PlaylistSearchAsync(Song input, BlockingCollection<string> result)
+        public async Task PlaylistSearchAsync(Song input, bool AuthorFilter, BlockingCollection<string> result)
         {
             SearchRequest rq = new SearchRequest(SearchRequest.Types.Playlist, $"{input.SongName} {input.ArtistName}");
             rq.Limit = 20;
             SearchResponse response_first_page = await spotifyClient.Search.Item(rq);
             var playlists = response_first_page.Playlists.Items.Select(x => x.Id);
-            Task.WaitAll(playlists.Select(i => PlaylistSongLookup(i, input.ArtistId, result)).ToArray());
-           
+            if (AuthorFilter)
+            {
+                Task.WaitAll(playlists.Select(i => PlaylistSongLookup(i, input.ArtistId, AuthorFilter, result)).ToArray());
+            } else
+            {
+                Task.WaitAll(playlists.Select(i => PlaylistSongLookupWithouAuthorFilter(i, result)).ToArray());
+            }
+
         }
 
-        public async Task PlaylistSongLookup(string playlist_id, string artist_id, BlockingCollection<string> master_list)
+        public async Task PlaylistSongLookup(string playlist_id, string artist_id, bool AuthorFilter, BlockingCollection<string> master_list)
         {
             PlaylistGetItemsRequest rq = new PlaylistGetItemsRequest(PlaylistGetItemsRequest.AdditionalTypes.Track);
             rq.Fields.Add("items(track(id,type,artists(id)))");
-            
-            var result = await spotifyClient.Playlists.GetItems(playlist_id, rq);
-            foreach (PlaylistTrack<IPlayableItem> item in result.Items)
+
+            try
             {
-                if (item.Track is FullTrack track)
+                var result = await spotifyClient.Playlists.GetItems(playlist_id, rq);
+            
+                foreach (PlaylistTrack<IPlayableItem> item in result.Items)
                 {
-                    
-                    if(!track.Artists.Any(x => x.Id == artist_id) && track.Id != null)
-                    //if(track.Id != null)
+                    if (item.Track is FullTrack track)
                     {
-                        master_list.Add(track.Id);
+                    
+                        if(track.Id != null && (AuthorFilter && !track.Artists.Any(x => x.Id == artist_id)) )
+                        //if(track.Id != null)
+                        {
+                            master_list.Add(track.Id);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task PlaylistSongLookupWithouAuthorFilter(string playlist_id, BlockingCollection<string> master_list)
+        {
+            PlaylistGetItemsRequest rq = new PlaylistGetItemsRequest(PlaylistGetItemsRequest.AdditionalTypes.Track);
+            rq.Fields.Add("items(track(id,type,artists(id)))");
+            try
+            {
+                var result = await spotifyClient.Playlists.GetItems(playlist_id, rq);
+                foreach (PlaylistTrack<IPlayableItem> item in result.Items)
+                {
+                    if (item.Track is FullTrack track)
+                    {
+                        if (track.Id != null)
+                        {
+                            master_list.Add(track.Id);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 

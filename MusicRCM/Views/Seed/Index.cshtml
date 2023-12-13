@@ -80,18 +80,22 @@
                              </a>
                         </div>
                         <div class="right_item btn btn-outline-light icon_text" id="search_butn2">
-                            <a asp-action="Clear" class="nohover">
+                            <a asp-action="SavePlaylist" class="nohover">
                                 @*<i id="clear_icon" class="fa fa-trash-o" aria-hidden="true"></i>
                 <p class="icon_text" style="color: #eb9f22;">*@
                                 Save to a playlist
                              </a>
                         </div>
-                        <div class="right_item btn btn-outline-light icon_text" id="search_butn2">
-                            <a asp-action="Clear" class="nohover">
-                                @*<i id="clear_icon" class="fa fa-trash-o" aria-hidden="true"></i>
-                <p class="icon_text" style="color: #eb9f22;">*@
-                                Add a playlist
-                             </a>
+                        <div class="pl_search">
+
+                            
+                            <input  type="submit" name="response" value="Add a playlist" formaction=@Url.Action("Playlist")  formmethod="post" id="search_butn" class="btn btn-outline-light icon_text nohover">
+                                
+                            </input>
+                            
+                            <div class="pl_search_item">
+                                <input id="PlaylistSearch" asp-for="PlaylistSearch" class="form-control input_field" />
+                            </div>
                         </div>
                     </div>
                     <div id="left">
